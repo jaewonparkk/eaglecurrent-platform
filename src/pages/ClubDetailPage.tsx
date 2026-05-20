@@ -2,6 +2,17 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { supabase } from "../lib/supabase";
 
+function cleanHtml(html: string | null) {
+    if (!html) return "No description";
+  
+    const withoutTags = html.replace(/<[^>]+>/g, "");
+  
+    const textarea = document.createElement("textarea");
+    textarea.innerHTML = withoutTags;
+  
+    return textarea.value.replace(/\s+/g, " ").trim();
+  }
+
 export default function ClubDetailPage() {
   const { orgId } = useParams();
 
@@ -51,7 +62,7 @@ export default function ClubDetailPage() {
       <h1>{club.name}</h1>
 
       <p style={{ marginTop: 20 }}>
-        {club.description}
+        {cleanHtml(club.description)}
       </p>
 
       <div style={{ marginTop: 20 }}>

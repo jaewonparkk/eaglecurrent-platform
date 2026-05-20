@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
+import { Link } from "react-router-dom";
 
 type Event = {
   id: string;
   title: string;
   organization_name: string;
+  organization_id: number;
   location: string;
   start_time: string;
   end_time: string;
@@ -25,6 +27,7 @@ function cleanHtml(html: string | null) {
 export default function FeedPage() {
   const [events, setEvents] = useState<Event[]>([]);
   const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     async function fetchEvents() {
@@ -46,6 +49,17 @@ export default function FeedPage() {
     fetchEvents();
   }, []);
 
+  const filteredEvents = events.filter((event) => {
+    const text = `
+      ${event.title}
+      ${event.organization_name}
+      ${event.location}
+      ${event.description}
+    `.toLowerCase();
+  
+    return text.includes(search.toLowerCase());
+  });
+
   if (loading) {
     return <div style={{ padding: "24px" }}>Loading events...</div>;
   }
@@ -53,10 +67,24 @@ export default function FeedPage() {
   return (
     <div style={{ padding: "24px" }}>
       <h1>Events</h1>
+      <input
+        type="text"
+        placeholder="Search events..."
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+        style={{
+            width: "100%",
+            maxWidth: "500px",
+            padding: "12px 16px",
+            borderRadius: "12px",
+            border: "1px solid #ddd",
+            marginBottom: "16px",
+            fontSize: "16px",
+        }}
+        />
+      <p>{filteredEvents.length} events found</p>
 
-      <p>{events.length} events found</p>
-
-      {events.map((event) => (
+      {filteredEvents.map((event) => (
         <div
           key={event.id}
           style={{
@@ -94,6 +122,22 @@ export default function FeedPage() {
             <strong>Description:</strong>{" "}
             {cleanHtml(event.description)}
           </p>
+
+          <Link
+        to={`/clubs/${event.organization_id}`}
+        style={{
+            display: "inline-block",
+            marginTop: "12px",
+            padding: "10px 14px",
+            borderRadius: "10px",
+            background: "#8b0028",
+            color: "white",
+            textDecoration: "none",
+            fontWeight: 600,
+        }}
+        >
+        View Club →
+        </Link>
         </div>
       ))}
     </div>
