@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import { supabase } from "./lib/supabase";
-import "./App.css";
+import { supabase } from "../lib/supabase";
 
 type Club = {
   id: string;
@@ -11,7 +10,7 @@ type Club = {
   category_names: string[];
 };
 
-function App() {
+export default function ClubsPage() {
   const [clubs, setClubs] = useState<Club[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -40,72 +39,35 @@ function App() {
 
   return (
     <div className="min-h-screen bg-neutral-100 p-8">
-      <h1 className="mb-6 text-4xl font-bold">
-        Boston College Clubs
-      </h1>
+      <h1 className="mb-6 text-4xl font-bold">Boston College Clubs</h1>
 
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))",
-          gap: "24px",
-        }}
-      >
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
         {clubs.map((club) => (
           <div
             key={club.id}
-            style={{
-              background: "white",
-              borderRadius: "20px",
-              padding: "20px",
-              boxShadow: "0 2px 10px rgba(0,0,0,0.08)",
-            }}
+            className="rounded-2xl bg-white p-5 shadow-sm"
           >
             {club.profile_picture && (
               <img
                 src={`https://se-images.campuslabs.com/clink/images/${club.profile_picture}`}
                 alt={club.name}
-                style={{
-                  width: "100%",
-                  height: "180px",
-                  objectFit: "cover",
-                  borderRadius: "14px",
-                  marginBottom: "16px",
-                }}
+                className="mb-4 h-40 w-full rounded-xl object-cover"
               />
             )}
 
-            <h2 style={{ fontSize: "22px", fontWeight: 700 }}>
+            <h2 className="text-xl font-semibold">
               {club.short_name || club.name}
             </h2>
 
-            <p
-              style={{
-                marginTop: "10px",
-                color: "#555",
-                lineHeight: 1.5,
-              }}
-            >
+            <p className="mt-2 text-sm text-neutral-600">
               {club.summary}
             </p>
 
-            <div
-              style={{
-                marginTop: "16px",
-                display: "flex",
-                flexWrap: "wrap",
-                gap: "8px",
-              }}
-            >
+            <div className="mt-4 flex flex-wrap gap-2">
               {club.category_names?.map((category) => (
                 <span
                   key={category}
-                  style={{
-                    background: "#eee",
-                    padding: "6px 12px",
-                    borderRadius: "999px",
-                    fontSize: "12px",
-                  }}
+                  className="rounded-full bg-neutral-200 px-3 py-1 text-xs"
                 >
                   {category}
                 </span>
@@ -117,5 +79,3 @@ function App() {
     </div>
   );
 }
-
-export default App;
