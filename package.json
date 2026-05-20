@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "sync-events": "tsx --env-file=.env scripts/syncCampusEvents.ts"
+    "sync-events": "tsx --env-file=.env scripts/syncCampusEvents.ts",
+    "sync-clubs": "tsx --env-file=.env scripts/syncCampusClubs.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.106.0",
