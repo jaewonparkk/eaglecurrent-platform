@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
 import { supabase } from "./lib/supabase";
+import { Routes, Route, Link } from "react-router-dom";
+import ClubDetailPage from "./pages/ClubDetailPage";
+import MapPage from "./pages/MapPage";
 import "./App.css";
 
 type Club = {
@@ -51,98 +54,105 @@ function App() {
   });
   
   return (
-    <div className="min-h-screen bg-neutral-100 p-8">
-      <h1 className="mb-6 text-4xl font-bold">
-        Boston College Clubs
-      </h1>
-
-      <input
-          type="text"
-          placeholder="Search clubs..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          style= {{
-            width: "100%",
-            maxWidth: "500px",
-            padding: "14px 18px",
-            borderRadius: "14px",
-            border: "1px solid #ddd",
-            marginBottom: "28px",
-            fontSize: "16px",
-          }}
-      />
-
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))",
-          gap: "24px",
-        }}
-      >
-        {filteredClubs.map((club) => (
-          <div
-            key={club.id}
-            style={{
-              background: "white",
-              borderRadius: "20px",
-              padding: "20px",
-              boxShadow: "0 2px 10px rgba(0,0,0,0.08)",
-            }}
-          >
-            {club.profile_picture && (
-              <img
-                src={`https://se-images.campuslabs.com/clink/images/${club.profile_picture}`}
-                alt={club.name}
-                style={{
-                  width: "100%",
-                  height: "180px",
-                  objectFit: "cover",
-                  borderRadius: "14px",
-                  marginBottom: "16px",
-                }}
-              />
-            )}
-
-            <h2 style={{ fontSize: "22px", fontWeight: 700 }}>
-              {club.short_name || club.name}
-            </h2>
-
-            <p
+    <Routes>
+      <Route
+        path="/"
+        element={
+          <div className="min-h-screen bg-neutral-100 p-8">
+            <h1 className="mb-6 text-4xl font-bold">
+              Boston College Clubs
+            </h1>
+  
+            <input
+              type="text"
+              placeholder="Search clubs..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
               style={{
-                marginTop: "10px",
-                color: "#555",
-                lineHeight: 1.5,
+                width: "100%",
+                maxWidth: "500px",
+                padding: "14px 18px",
+                borderRadius: "14px",
+                border: "1px solid #ddd",
+                marginBottom: "28px",
+                fontSize: "16px",
               }}
-            >
-              {club.summary}
-            </p>
-
+            />
+  
             <div
               style={{
-                marginTop: "16px",
-                display: "flex",
-                flexWrap: "wrap",
-                gap: "8px",
+                display: "grid",
+                gridTemplateColumns:
+                  "repeat(auto-fill, minmax(320px, 1fr))",
+                gap: "24px",
               }}
             >
-              {club.category_names?.map((category) => (
-                <span
-                  key={category}
+              {filteredClubs.map((club) => (
+                <Link
+                  key={club.id}
+                  to={`/clubs/${club.campus_labs_org_id}`}
                   style={{
-                    background: "#eee",
-                    padding: "6px 12px",
-                    borderRadius: "999px",
-                    fontSize: "12px",
+                    textDecoration: "none",
+                    color: "inherit",
                   }}
                 >
-                  {category}
-                </span>
+                  <div
+                    style={{
+                      background: "white",
+                      borderRadius: "20px",
+                      padding: "20px",
+                      boxShadow: "0 2px 10px rgba(0,0,0,0.08)",
+                      height: "100%",
+                    }}
+                  >
+                    {club.profile_picture && (
+                      <img
+                        src={`https://se-images.campuslabs.com/clink/images/${club.profile_picture}`}
+                        alt={club.name}
+                        style={{
+                          width: "100%",
+                          height: "180px",
+                          objectFit: "cover",
+                          borderRadius: "14px",
+                          marginBottom: "16px",
+                        }}
+                      />
+                    )}
+  
+                    <h2
+                      style={{
+                        fontSize: "22px",
+                        fontWeight: 700,
+                      }}
+                    >
+                      {club.short_name || club.name}
+                    </h2>
+  
+                    <p
+                      style={{
+                        marginTop: "10px",
+                        color: "#555",
+                        lineHeight: 1.5,
+                      }}
+                    >
+                      {club.summary}
+                    </p>
+                  </div>
+                </Link>
               ))}
             </div>
           </div>
-        ))}
-      </div>
-    </div>
+        }
+      />
+  
+      <Route
+        path="/clubs/:orgId"
+        element={<ClubDetailPage />}
+      />
+
+      <Route path="/map" element={<MapPage />} />
+    </Routes>
+
   );
 }
 
