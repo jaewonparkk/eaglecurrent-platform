@@ -14,6 +14,7 @@ type Club = {
 function App() {
   const [clubs, setClubs] = useState<Club[]>([]);
   const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     async function fetchClubs() {
@@ -38,11 +39,38 @@ function App() {
     return <div className="p-8">Loading clubs...</div>;
   }
 
+  const filteredClubs = clubs.filter((club) => {
+    const text = `
+      ${club.name}
+      ${club.short_name}
+      ${club.summary}
+      ${club.category_names?.join(" ")}
+    `.toLowerCase();
+  
+    return text.includes(search.toLowerCase());
+  });
+  
   return (
     <div className="min-h-screen bg-neutral-100 p-8">
       <h1 className="mb-6 text-4xl font-bold">
         Boston College Clubs
       </h1>
+
+      <input
+          type="text"
+          placeholder="Search clubs..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          style= {{
+            width: "100%",
+            maxWidth: "500px",
+            padding: "14px 18px",
+            borderRadius: "14px",
+            border: "1px solid #ddd",
+            marginBottom: "28px",
+            fontSize: "16px",
+          }}
+      />
 
       <div
         style={{
@@ -51,7 +79,7 @@ function App() {
           gap: "24px",
         }}
       >
-        {clubs.map((club) => (
+        {filteredClubs.map((club) => (
           <div
             key={club.id}
             style={{
