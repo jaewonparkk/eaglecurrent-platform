@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 import {
   MapContainer,
   TileLayer,
@@ -26,6 +27,8 @@ type Event = {
   start_time: string;
   latitude: number;
   longitude: number;
+  organization_id: number;
+  organization_name: string;
 };
 
 export default function MapPage() {
@@ -113,6 +116,24 @@ export default function MapPage() {
                       }}
                     >
                       <strong>{event.title}</strong>
+
+                      <p style={{ margin: "4px 0", fontSize: 13 }}>
+                        {event.organization_name}
+                        </p>
+
+                        <Link
+                        to={`/clubs/${event.organization_id}`}
+                        style={{
+                            display: "inline-block",
+                            marginTop: "6px",
+                            fontSize: "13px",
+                            color: "#8b0028",
+                            fontWeight: 600,
+                            textDecoration: "none",
+                        }}
+                        >
+                        View Club →
+                        </Link>
 
                       <p
                         style={{
