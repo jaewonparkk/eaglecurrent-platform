@@ -11,6 +11,17 @@ type Event = {
   description: string;
 };
 
+function cleanHtml(html: string | null) {
+    if (!html) return "No description";
+  
+    const withoutTags = html.replace(/<[^>]+>/g, "");
+  
+    const textarea = document.createElement("textarea");
+    textarea.innerHTML = withoutTags;
+  
+    return textarea.value.replace(/\s+/g, " ").trim();
+  }
+
 export default function FeedPage() {
   const [events, setEvents] = useState<Event[]>([]);
   const [loading, setLoading] = useState(true);
@@ -81,9 +92,7 @@ export default function FeedPage() {
 
           <p>
             <strong>Description:</strong>{" "}
-            {event.description
-              ? event.description.replace(/<[^>]+>/g, "")
-              : "No description"}
+            {cleanHtml(event.description)}
           </p>
         </div>
       ))}
