@@ -3,6 +3,7 @@ import FeedPage from "./pages/FeedPage";
 import ClubsPage from "./pages/ClubsPage";
 import ClubDetailPage from "./pages/ClubDetailPage";
 import MapPage from "./pages/MapPage";
+import OnboardingPage from "./pages/OnboardingPage";
 import "./App.css";
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
           <Link to="/" style={{ textDecoration: "none", color: "#333" }}>Feed</Link>
           <Link to="/clubs" style={{ textDecoration: "none", color: "#333" }}>Clubs</Link>
           <Link to="/map" style={{ textDecoration: "none", color: "#333" }}>Map</Link>
+          <Link to="/onboarding" style={{ textDecoration: "none", color: "#333" }}>Preferences</Link>
         </div>
       </nav>
 
@@ -34,6 +36,7 @@ function App() {
       <Route path="/clubs" element={<ClubsPage />} />
       <Route path="/clubs/:orgId" element={<ClubDetailPage />} />
       <Route path="/map" element={<MapPage />} />
+      <Route path="/onboarding" element={<OnboardingPage />} />
     </Routes>
     </>
   );
