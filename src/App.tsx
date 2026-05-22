@@ -4,6 +4,7 @@ import ClubsPage from "./pages/ClubsPage";
 import ClubDetailPage from "./pages/ClubDetailPage";
 import MapPage from "./pages/MapPage";
 import OnboardingPage from "./pages/OnboardingPage";
+import WelcomePage from "./pages/WelcomePage";
 import "./App.css";
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
       </nav>
 
     <Routes>
+      <Route path="/welcome" element={<WelcomePage />} />
       <Route path="/" element={<FeedPage />} />
       <Route path="/clubs" element={<ClubsPage />} />
       <Route path="/clubs/:orgId" element={<ClubDetailPage />} />
