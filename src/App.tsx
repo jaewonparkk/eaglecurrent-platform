@@ -34,7 +34,12 @@ function App() {
 
     <Routes>
       <Route path="/welcome" element={<WelcomePage />} />
-      <Route path="/" element={<FeedPage />} />
+      <Route path="/" element={localStorage.getItem("hasCompletedOnboarding") === "true" ? (
+          <FeedPage />
+        ) : (
+          <WelcomePage />
+        )
+      }/>
       <Route path="/clubs" element={<ClubsPage />} />
       <Route path="/clubs/:orgId" element={<ClubDetailPage />} />
       <Route path="/map" element={<MapPage />} />

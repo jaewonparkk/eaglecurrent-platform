@@ -28,6 +28,9 @@ export default function FeedPage() {
   const [events, setEvents] = useState<Event[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
+  const savedInterests: string[] = JSON.parse(
+    localStorage.getItem("interests") || "[]"
+  );
 
   useEffect(() => {
     async function fetchEvents() {
@@ -67,6 +70,10 @@ export default function FeedPage() {
   return (
     <div style={{ padding: "24px" }}>
       <h1>Events</h1>
+      <p>
+        Your interests:{" "}
+        {savedInterests.length > 0 ? savedInterests.join(", ") : "None selected"}
+      </p>
       <input
         type="text"
         placeholder="Search events..."

@@ -16,6 +16,7 @@ const INTERESTS = [
   "Health",
 ];
 
+
 export default function OnboardingPage() {
   const [selected, setSelected] = useState<string[]>([]);
   const navigate = useNavigate();
@@ -30,6 +31,7 @@ export default function OnboardingPage() {
 
   function saveInterests() {
     localStorage.setItem("interests", JSON.stringify(selected));
+    localStorage.setItem("hasCompletedOnboarding", "true");
     navigate("/");
   }
 
