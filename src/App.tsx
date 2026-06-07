@@ -5,6 +5,7 @@ import ClubDetailPage from "./pages/ClubDetailPage";
 import MapPage from "./pages/MapPage";
 import OnboardingPage from "./pages/OnboardingPage";
 import WelcomePage from "./pages/WelcomePage";
+import AuthPage from "./pages/AuthPage";
 import "./App.css";
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
           <Link to="/clubs" style={{ textDecoration: "none", color: "#333" }}>Clubs</Link>
           <Link to="/map" style={{ textDecoration: "none", color: "#333" }}>Map</Link>
           <Link to="/onboarding" style={{ textDecoration: "none", color: "#333" }}>Preferences</Link>
+          <Link to="/auth" style={{ textDecoration: "none", color: "#333" }}>Login</Link>
         </div>
       </nav>
 
@@ -44,6 +46,7 @@ function App() {
       <Route path="/clubs/:orgId" element={<ClubDetailPage />} />
       <Route path="/map" element={<MapPage />} />
       <Route path="/onboarding" element={<OnboardingPage />} />
+      <Route path="/auth" element={<AuthPage />} />
     </Routes>
     </>
   );

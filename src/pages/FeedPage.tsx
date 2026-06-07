@@ -11,6 +11,7 @@ type Event = {
   start_time: string;
   end_time: string;
   description: string;
+  category_names?: string[];
 };
 
 function cleanHtml(html: string | null) {
