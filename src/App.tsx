@@ -6,6 +6,7 @@ import MapPage from "./pages/MapPage";
 import OnboardingPage from "./pages/OnboardingPage";
 import WelcomePage from "./pages/WelcomePage";
 import AuthPage from "./pages/AuthPage";
+import SplashPage from "./pages/SplashPage";
 import "./App.css";
 
 function App() {
@@ -26,7 +27,7 @@ function App() {
         </Link>
 
         <div style={{ display: "flex", gap: "18px" }}>
-          <Link to="/" style={{ textDecoration: "none", color: "#333" }}>Feed</Link>
+          <Link to="/feed" style={{ textDecoration: "none", color: "#333" }}>Feed</Link>
           <Link to="/clubs" style={{ textDecoration: "none", color: "#333" }}>Clubs</Link>
           <Link to="/map" style={{ textDecoration: "none", color: "#333" }}>Map</Link>
           <Link to="/onboarding" style={{ textDecoration: "none", color: "#333" }}>Preferences</Link>
@@ -35,13 +36,9 @@ function App() {
       </nav>
 
     <Routes>
+      <Route path="/" element={<SplashPage />} />
       <Route path="/welcome" element={<WelcomePage />} />
-      <Route path="/" element={localStorage.getItem("hasCompletedOnboarding") === "true" ? (
-          <FeedPage />
-        ) : (
-          <WelcomePage />
-        )
-      }/>
+      <Route path="/feed" element={<FeedPage />} />
       <Route path="/clubs" element={<ClubsPage />} />
       <Route path="/clubs/:orgId" element={<ClubDetailPage />} />
       <Route path="/map" element={<MapPage />} />
