@@ -53,50 +53,27 @@ export default function ClubsPage() {
   }
 
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        background: "#f5f5f5",
-        padding: "32px",
-      }}
-    >
-      <h1
-        style={{
-          fontSize: "40px",
-          fontWeight: 800,
-          marginBottom: "20px",
-        }}
-      >
-        Boston College Clubs
-      </h1>
-
+    <div className="page">
+      <div className="page-header">
+        <h1 className="page-title">Boston College Clubs</h1>
+        <p className="page-subtitle">
+          Search 400+ student organizations from BC Engage.
+        </p>
+      </div>
+  
       <input
+        className="search-input"
         type="text"
         placeholder="Search clubs..."
         value={search}
         onChange={(e) => setSearch(e.target.value)}
-        style={{
-          width: "100%",
-          maxWidth: "520px",
-          padding: "14px 18px",
-          borderRadius: "14px",
-          border: "1px solid #ddd",
-          marginBottom: "24px",
-          fontSize: "16px",
-        }}
       />
-
-      <p style={{ marginBottom: "24px", color: "#666" }}>
+  
+      <p className="page-subtitle" style={{ marginBottom: "20px" }}>
         {filteredClubs.length} clubs found
       </p>
-
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
-          gap: "24px",
-        }}
-      >
+  
+      <div className="card-grid">
         {filteredClubs.map((club) => (
           <Link
             key={club.id}
@@ -106,70 +83,33 @@ export default function ClubsPage() {
               color: "inherit",
             }}
           >
-            <div
-              style={{
-                background: "white",
-                borderRadius: "18px",
-                padding: "18px",
-                boxShadow: "0 2px 10px rgba(0,0,0,0.08)",
-                height: "100%",
-              }}
-            >
+            <div className="card" style={{ height: "100%" }}>
               {club.profile_picture && (
                 <img
                   src={`https://se-images.campuslabs.com/clink/images/${club.profile_picture}`}
                   alt={club.name}
-                  style={{
-                    width: "100%",
-                    height: "160px",
-                    objectFit: "cover",
-                    borderRadius: "14px",
-                    marginBottom: "14px",
-                  }}
+                  className="card-image"
                 />
               )}
-
-              <h2
-                style={{
-                  fontSize: "20px",
-                  fontWeight: 700,
-                  marginBottom: "8px",
-                }}
-              >
+  
+              <h2 className="card-title">
                 {club.short_name || club.name}
               </h2>
-
-              <p
-                style={{
-                  color: "#555",
-                  lineHeight: 1.5,
-                  fontSize: "14px",
-                }}
-              >
+  
+              <p className="card-description">
                 {club.summary || "No summary available."}
               </p>
-
-              <div
-                style={{
-                  marginTop: "14px",
-                  display: "flex",
-                  flexWrap: "wrap",
-                  gap: "8px",
-                }}
-              >
-                {club.category_names?.map((category) => (
-                  <span
-                    key={category}
-                    style={{
-                      background: "#eee",
-                      padding: "6px 10px",
-                      borderRadius: "999px",
-                      fontSize: "12px",
-                    }}
-                  >
-                    {category}
-                  </span>
-                ))}
+  
+              <div className="badge-row">
+                {club.category_names?.length ? (
+                  club.category_names.map((category) => (
+                    <span key={category} className="badge">
+                      {category}
+                    </span>
+                  ))
+                ) : (
+                  <span className="badge">No category</span>
+                )}
               </div>
             </div>
           </Link>

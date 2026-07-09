@@ -36,23 +36,36 @@ export default function OnboardingPage() {
   }
 
   return (
-    <div>
-      <h1>Choose your interests</h1>
-
-      {INTERESTS.map((interest) => (
-        <div key={interest}>
-          <label>
-            <input
-              type="checkbox"
-              checked={selected.includes(interest)}
-              onChange={() => toggleInterest(interest)}
-            />
-            {interest}
-          </label>
-        </div>
-      ))}
-
-      <button onClick={saveInterests}>
+    <div className="page">
+      <div className="page-header">
+        <h1 className="page-title">Choose your interests</h1>
+        <p className="page-subtitle">
+          Pick the topics you want EagleCurrent to use for your feed.
+        </p>
+      </div>
+  
+      <div className="chip-grid">
+        {INTERESTS.map((interest) => {
+          const isSelected = selected.includes(interest);
+  
+          return (
+            <button
+              key={interest}
+              type="button"
+              onClick={() => toggleInterest(interest)}
+              className={`chip ${isSelected ? "chip-selected" : ""}`}
+            >
+              {interest}
+            </button>
+          );
+        })}
+      </div>
+  
+      <button
+        onClick={saveInterests}
+        className="btn btn-primary"
+        disabled={selected.length === 0}
+      >
         Save interests
       </button>
     </div>

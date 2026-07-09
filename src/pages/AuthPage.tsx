@@ -40,52 +40,60 @@ export default function AuthPage() {
         return;
       }
 
-      navigate("/");
+      navigate("/feed");
     }
   }
 
   return (
-    <div style={{ padding: "32px" }}>
-      <h1>{mode === "login" ? "Log in" : "Sign up"}</h1>
-
-      <input
-        type="email"
-        placeholder="yourname@bc.edu"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-
-      <br />
-      <br />
-
-      <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-
-      <br />
-      <br />
-
-      <button onClick={handleSubmit}>
-        {mode === "login" ? "Log in" : "Sign up"}
-      </button>
-
-      <br />
-      <br />
-
-      <button
-        onClick={() =>
-          setMode(mode === "login" ? "signup" : "login")
-        }
-      >
-        {mode === "login"
-          ? "Need an account? Sign up"
-          : "Already have an account? Log in"}
-      </button>
-
-      {message && <p>{message}</p>}
+    <div className="page">
+      <div className="card" style={{ maxWidth: "420px", margin: "64px auto" }}>
+        <div className="page-header">
+          <h1 className="page-title">
+            {mode === "login" ? "Log in" : "Sign up"}
+          </h1>
+          <p className="page-subtitle">
+            Use your Boston College @bc.edu email.
+          </p>
+        </div>
+  
+        <input
+          className="search-input"
+          type="email"
+          placeholder="yourname@bc.edu"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          style={{ marginBottom: "12px" }}
+        />
+  
+        <input
+          className="search-input"
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          style={{ marginBottom: "16px" }}
+        />
+  
+        <button onClick={handleSubmit} className="btn btn-primary">
+          {mode === "login" ? "Log in" : "Sign up"}
+        </button>
+  
+        <button
+          onClick={() => setMode(mode === "login" ? "signup" : "login")}
+          className="btn btn-outline"
+          style={{ marginLeft: "10px" }}
+        >
+          {mode === "login"
+            ? "Need an account? Sign up"
+            : "Already have an account? Log in"}
+        </button>
+  
+        {message && (
+          <p className="card-meta" style={{ marginTop: "16px" }}>
+            {message}
+          </p>
+        )}
+      </div>
     </div>
   );
 }
