@@ -63,7 +63,7 @@ It helps students discover relevant campus events, explore clubs, view events on
 ### Expanded Event Details
 
 <p align="center">
-  <img src="public/eaglecurrent_feed_event_detail.png" alt="Expanded event details" width="800"/>
+  <img src="public/ealgecurrent_feed_event_about_detail.png" alt="Expanded event details" width="800"/>
 </p>
 
 ### Club Discovery
