@@ -1,4 +1,5 @@
 import { Routes, Route, Link } from "react-router-dom";
+import { supabase } from "./lib/supabase";
 import FeedPage from "./pages/FeedPage";
 import ClubsPage from "./pages/ClubsPage";
 import ClubDetailPage from "./pages/ClubDetailPage";
