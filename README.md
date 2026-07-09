@@ -12,6 +12,7 @@ It helps students discover relevant campus events, explore clubs, view events on
 
 ## Demo & Pitch
 
+- **Live Demo:** [Open EagleCurrent](https://jaewonparkk.github.io/eaglecurrent-platform/)
 - **Product Demo:** [Watch on YouTube](https://youtu.be/_QaKr-vNcW4)
 - **Pitch Video:** [Watch on YouTube](https://youtu.be/RbiD2m4d_ZY?si=3i2MNsWoF6FmsCEq&t=1)
 - **Pitch Deck:** [View on Canva](https://canva.link/jgisq0fxpbbgm2e)
