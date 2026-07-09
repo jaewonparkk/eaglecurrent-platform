@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "vite",
     "sync-events": "tsx --env-file=.env scripts/syncCampusEvents.ts",
-    "sync-clubs": "tsx --env-file=.env scripts/syncCampusClubs.ts"
+    "sync-clubs": "tsx --env-file=.env scripts/syncCampusClubs.ts",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.106.0",
