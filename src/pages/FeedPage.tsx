@@ -59,6 +59,14 @@ export default function FeedPage() {
   const [events, setEvents] = useState<Event[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
+  const [expandedEventIds, setExpandedEventIds] = useState<string[]>([]);
+  function toggleEventDetails(eventId: string) {
+    if (expandedEventIds.includes(eventId)) {
+      setExpandedEventIds(expandedEventIds.filter((id) => id !== eventId));
+    } else {
+      setExpandedEventIds([...expandedEventIds, eventId]);
+    }
+  }
   const savedInterests: string[] = JSON.parse(
     localStorage.getItem("interests") || "[]"
   );
@@ -199,25 +207,38 @@ export default function FeedPage() {
                 {end ? ` – ${end}` : ""}
               </p>
 
-              <p className="card-description">{cleanHtml(event.description)}</p>
-
               {event.category_names?.length ? (
-                <div className="badge-row">
-                  {event.category_names.map((category) => (
-                    <span key={category} className="badge">
-                      {category}
-                    </span>
-                  ))}
-                </div>
-              ) : null}
+  <div className="badge-row">
+    {event.category_names.map((category) => (
+      <span key={category} className="badge">
+        {category}
+      </span>
+    ))}
+  </div>
+) : null}
 
-              <Link
-                to={`/clubs/${event.organization_id}`}
-                className="btn btn-primary"
-                style={{ marginTop: "16px" }}
-              >
-                View Club →
-              </Link>
+<div style={{ display: "flex", gap: "10px", marginTop: "16px" }}>
+  <button
+    type="button"
+    className="btn btn-outline"
+    onClick={() => toggleEventDetails(event.id)}
+  >
+    {expandedEventIds.includes(event.id) ? "Hide Details" : "About Event"}
+  </button>
+
+  <Link
+    to={`/clubs/${event.organization_id}`}
+    className="btn btn-primary"
+  >
+    View Club →
+  </Link>
+</div>
+
+{expandedEventIds.includes(event.id) && (
+  <p className="card-description">
+    {cleanHtml(event.description)}
+  </p>
+)}
             </div>
           );
         })}
