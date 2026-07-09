@@ -1,5 +1,7 @@
 # EagleCurrent 🦅🌱
 
+🏆 **1st Place Winner** — [2026 Eagles Sustainability Competition] (https://www.bc.edu/bc-web/centers/schiller-institute/student-enagement/eagles-sustainability-competition/2026---eagles-sustainability-competition.html)
+
 **EagleCurrent** is a full-stack campus event discovery platform for Boston College students and student organizations.
 
 It helps students discover relevant campus events, explore clubs, view events on a live campus map, and receive event recommendations based on their interests.
