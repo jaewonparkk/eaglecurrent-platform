@@ -12,6 +12,7 @@ type Event = {
   end_time: string;
   description: string;
   category_names?: string[];
+  match_score?: number;
 };
 
 function cleanHtml(html: string | null) {
@@ -24,6 +25,23 @@ function cleanHtml(html: string | null) {
   
     return textarea.value.replace(/\s+/g, " ").trim();
   }
+  const INTEREST_TO_CATEGORIES: Record<string, string[]> = {
+    "Computer Science": ["Academic/Pre-Professional"],
+    Finance: ["Academic/Pre-Professional"],
+    Business: [
+      "Academic/Pre-Professional",
+      "Leadership Programs and Organizations",
+    ],
+    Environment: ["Service", "Volunteer"],
+    Neuroscience: ["Academic/Pre-Professional"],
+    Arts: ["Performance", "Music"],
+    Music: ["Music", "Performance"],
+    "Campus Ministry": ["Campus Ministry"],
+    Service: ["Service", "Volunteer"],
+    Leadership: ["Leadership Programs and Organizations"],
+    Intercultural: ["Intercultural"],
+    Health: ["Health and Wellness", "Academic/Pre-Professional"],
+  };
 
 export default function FeedPage() {
   const [events, setEvents] = useState<Event[]>([]);
@@ -35,18 +53,70 @@ export default function FeedPage() {
 
   useEffect(() => {
     async function fetchEvents() {
-      const { data, error } = await supabase
+      const { data: eventData, error: eventError } = await supabase
         .from("events")
         .select("*")
         .order("start_time", { ascending: true });
-
-      if (error) {
-        console.error("Error fetching events:", error);
+    
+      if (eventError) {
+        console.error("Error fetching events:", eventError);
         setLoading(false);
         return;
       }
-
-      setEvents(data || []);
+    
+      const { data: clubData, error: clubError } = await supabase
+        .from("clubs")
+        .select("campus_labs_org_id, category_names");
+    
+      if (clubError) {
+        console.error("Error fetching clubs:", clubError);
+        setEvents(eventData || []);
+        setLoading(false);
+        return;
+      }
+    
+      const clubCategoryMap = new Map(
+        (clubData || []).map((club) => [
+          club.campus_labs_org_id,
+          club.category_names || [],
+        ])
+      );
+    
+      const savedInterests: string[] = JSON.parse(
+        localStorage.getItem("interests") || "[]"
+      );
+    
+      const eventsWithScores = (eventData || []).map((event) => {
+        const eventCategories =
+          clubCategoryMap.get(event.organization_id) || [];
+    
+        const targetCategories = savedInterests.flatMap(
+          (interest) => INTEREST_TO_CATEGORIES[interest] || []
+        );
+    
+        const matchScore = eventCategories.filter((category) =>
+          targetCategories.includes(category)
+        ).length;
+    
+        return {
+          ...event,
+          category_names: eventCategories,
+          match_score: matchScore,
+        };
+      });
+    
+      eventsWithScores.sort((a, b) => {
+        if (b.match_score !== a.match_score) {
+          return b.match_score - a.match_score;
+        }
+    
+        return (
+          new Date(a.start_time).getTime() -
+          new Date(b.start_time).getTime()
+        );
+      });
+    
+      setEvents(eventsWithScores);
       setLoading(false);
     }
 
@@ -130,6 +200,17 @@ export default function FeedPage() {
             <strong>Description:</strong>{" "}
             {cleanHtml(event.description)}
           </p>
+
+          <p>
+  <strong>Categories:</strong>{" "}
+  {event.category_names?.length
+    ? event.category_names.join(", ")
+    : "None"}
+</p>
+
+<p>
+  <strong>Match score:</strong> {event.match_score || 0}
+</p>
 
           <Link
         to={`/clubs/${event.organization_id}`}
