@@ -33,7 +33,7 @@ It helps students discover relevant campus events, explore clubs, view events on
   Events are ranked using student interests and club categories.
 
 - **Live Event Data Sync**  
-  Events are pulled from Boston College’s Campus Labs / Engage platform and stored in Supabase.
+  Events are pulled from Boston College’s Campus Labs API / Engage platform and stored in Supabase.
 
 - **Club Directory**  
   Students can browse and search 400+ Boston College student organizations.
