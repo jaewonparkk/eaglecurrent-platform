@@ -7,9 +7,30 @@ import OnboardingPage from "./pages/OnboardingPage";
 import WelcomePage from "./pages/WelcomePage";
 import AuthPage from "./pages/AuthPage";
 import SplashPage from "./pages/SplashPage";
+import ClubDashboardPage from "./pages/ClubDashboardPage";
+import CreatePostPage from "./pages/CreatePostPage";
+import { useEffect, useState } from "react";
+import EditPostPage from "./pages/EditPostPage";
+
 import "./App.css";
 
 function App() {
+  const [role, setRole] = useState<string | null>(
+    localStorage.getItem("role")
+  );
+
+  useEffect(() => {
+    function updateRole() {
+      setRole(localStorage.getItem("role"));
+    }
+
+    window.addEventListener("rolechange", updateRole);
+
+    return () => {
+      window.removeEventListener("rolechange", updateRole);
+    };
+  }, []);
+
   return (
     <>
       <nav className="nav">
@@ -18,11 +39,31 @@ function App() {
         </Link>
 
         <div className="nav-links">
-          <Link to="/feed" className="nav-link">Feed</Link>
-          <Link to="/clubs" className="nav-link">Clubs</Link>
-          <Link to="/map" className="nav-link">Map</Link>
-          <Link to="/onboarding" className="nav-link">Preferences</Link>
-          <Link to="/auth" className="nav-link">Login</Link>
+          <Link to="/feed" className="nav-link">
+            Feed
+          </Link>
+
+          <Link to="/clubs" className="nav-link">
+            Clubs
+          </Link>
+
+          <Link to="/map" className="nav-link">
+            Map
+          </Link>
+
+          <Link to="/onboarding" className="nav-link">
+            Preferences
+          </Link>
+
+          {role === "club" && (
+            <Link to="/club-dashboard" className="nav-link">
+              Club Dashboard
+            </Link>
+          )}
+
+          <Link to="/auth" className="nav-link">
+            Login
+          </Link>
         </div>
       </nav>
 
@@ -35,7 +76,25 @@ function App() {
         <Route path="/map" element={<MapPage />} />
         <Route path="/onboarding" element={<OnboardingPage />} />
         <Route path="/auth" element={<AuthPage />} />
+        
+
+        <Route
+          path="/club-dashboard"
+          element={<ClubDashboardPage />}
+          
+        />
+
+<Route
+      path="/club-dashboard/posts/:postId/edit"
+      element={<EditPostPage />}
+    />
+        <Route
+          path="/club-dashboard/create"
+          element={<CreatePostPage />}
+        />
       </Routes>
+
+      
     </>
   );
 }

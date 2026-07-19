@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
 import { Link } from "react-router-dom";
+import ClubPostsSection from "../components/ClubPostsSection";
+import RsvpButton from "../components/RsvpButton";
+
+
 
 type Event = {
   id: string;
@@ -172,6 +176,7 @@ export default function FeedPage() {
             : "None selected"}
         </p>
       </div>
+      <ClubPostsSection />
 
       <input
         type="text"
@@ -217,13 +222,23 @@ export default function FeedPage() {
   </div>
 ) : null}
 
-<div style={{ display: "flex", gap: "10px", marginTop: "16px" }}>
+<div
+  style={{
+    display: "flex",
+    alignItems: "flex-start",
+    flexWrap: "wrap",
+    gap: "10px",
+    marginTop: "16px",
+  }}
+>
   <button
     type="button"
     className="btn btn-outline"
     onClick={() => toggleEventDetails(event.id)}
   >
-    {expandedEventIds.includes(event.id) ? "Hide Details" : "About Event"}
+    {expandedEventIds.includes(event.id)
+      ? "Hide Details"
+      : "About Event"}
   </button>
 
   <Link
@@ -232,6 +247,8 @@ export default function FeedPage() {
   >
     View Club →
   </Link>
+
+  <RsvpButton eventId={event.id} />
 </div>
 
 {expandedEventIds.includes(event.id) && (

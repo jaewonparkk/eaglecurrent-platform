@@ -3,9 +3,14 @@ import { useNavigate } from "react-router-dom";
 export default function WelcomePage() {
   const navigate = useNavigate();
 
-  function chooseRole(role: string) {
+  function chooseRole(role: "student" | "club") {
     localStorage.setItem("role", role);
-    navigate("/onboarding");
+  
+    if (role === "club") {
+      navigate("/club-dashboard");
+    } else {
+      navigate("/onboarding");
+    }
   }
 
   return (
