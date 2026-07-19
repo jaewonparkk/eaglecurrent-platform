@@ -21,6 +21,14 @@ It helps students discover relevant campus events, explore clubs, view events on
 
 ---
 
+### New Features Demo
+
+<p align="center">
+  <img src="public/new_features_demo.gif" alt="New Features Demo" width="900"/>
+</p>
+
+---
+
 ## Features
 
 - **BC Email Authentication**  
@@ -47,6 +55,24 @@ It helps students discover relevant campus events, explore clubs, view events on
 - **Expandable Event Details**  
   Students can quickly scan events and expand details only when needed.
 
+- **Club Dashboard**  
+  Student organizations can create, edit, and manage digital event promotions through a dedicated dashboard.
+
+- **Digital Event Publishing**  
+  Clubs can generate event cards or upload existing posters directly to EagleCurrent.
+
+- **Role-Based Experience**  
+  Users choose whether they are joining as a student or a student organization during authentication.
+
+- **RSVP System**  
+  Students can RSVP to club-created events while organizations can monitor participation in real time.
+
+- **RSVP Capacity Tracking**  
+  Clubs can define event capacity and students can view remaining spots through a live progress bar.
+
+- **Featured Club Posts**  
+  Club-created digital events appear at the top of the student feed for increased visibility.
+  
 ---
 
 ## Screenshots
@@ -79,6 +105,44 @@ It helps students discover relevant campus events, explore clubs, view events on
 
 <p align="center">
   <img src="public/eaglecurrent_club_details.png" alt="Club detail page" width="800"/>
+</p>
+
+### Club Dashboard
+
+<p align="center">
+  <img src="public/club_dashboards_for_clubs.png" width="800"/>
+</p>
+
+---
+
+### Create Digital Event Card
+
+<p align="center">
+  <img src="public/create_digital_post_event_card.png" width="800"/>
+</p>
+
+---
+
+### Upload Existing Poster
+
+<p align="center">
+  <img src="public/create_post_with_existing_poster.png" width="800"/>
+</p>
+
+---
+
+### Updated Student Feed
+
+<p align="center">
+  <img src="public/feed_features.png" width="800"/>
+</p>
+
+---
+
+### Role Selection During Login
+
+<p align="center">
+  <img src="public/login_choose_students_or_clubs.png" width="800"/>
 </p>
 
 ---
@@ -195,31 +259,57 @@ npm run dev
 
 EagleCurrent currently supports:
 
+### Student Features
+
 - Supabase authentication
-- `@bc.edu` email validation
+- Boston College `@bc.edu` email validation
+- Student / Organization role selection
 - Interest onboarding
-- Event feed
+- Personalized event feed
+- Featured organization posts
 - Event search
 - Expandable event details
-- Interest-based event ranking
+- RSVP system
+- RSVP progress tracking
+- Event capacity display
 - Club directory
 - Club detail pages
-- Interactive map
+- Interactive campus map
+
+### Organization Features
+
+- Club dashboard
+- Create digital event cards
+- Upload existing event posters
+- Edit published events
+- Delete published events
+- RSVP analytics
+- RSVP capacity management
+- Featured event publishing
+
+### Infrastructure
+
 - Campus Labs club sync
 - Campus Labs event sync
+- Supabase Authentication
+- PostgreSQL database
+- Supabase Storage
+- Row Level Security (RLS)
 
 ---
 
 ## Next Steps
 
-- Improve recommendation logic
-- Add saved events
-- Add RSVP flow
-- Build club / OSI dashboard
-- Add poster reduction impact analytics
-- Deploy production version on Vercel
-- Add stronger backend validation for `@bc.edu` users
-
+- Club follow system
+- Prioritize posts from followed organizations
+- Saved / bookmarked events
+- Push notifications for upcoming events
+- Event QR-code check-in
+- Organization engagement analytics
+- Sustainability impact dashboard
+- Mobile responsiveness improvements
+- Production deployment on Vercel
+- 
 ---
 
 ## Author
